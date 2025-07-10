@@ -4,16 +4,15 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>TODO - Your title</title>
-<meta content="Your Name Here" name="author">
+<title>ACME DNS Persist Validation Method</title>
+<meta content="Henry Birge-Lee" name="author">
 <meta content="
-       TODO Abstract 
+       Domain Control Validation can be performed using a persistent identifier at a well-known DNS prefix. This draft allows for support of this method using the ACME protocol. 
     " name="description">
 <meta content="xml2rfc 3.29.0" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
-<meta content="draft-todo-yourname-protocol-latest" name="ietf.draft">
+<meta content="acme" name="keyword">
+<meta content="DNS" name="keyword">
+<meta content="draft-birgelee-acme-dns-persist-01" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.29.0
     Python 3.12.11
@@ -1045,11 +1044,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">TODO - Abbreviation</td>
+<td class="center">ACME dns-persist-01</td>
 <td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Here</td>
+<td class="left">Birge-Lee</td>
 <td class="center">Expires 11 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1058,30 +1057,30 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">WG Working Group</dd>
+<dd class="workgroup">Automated Certificate Management Environment</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-todo-yourname-protocol-latest</dd>
+<dd class="internet-draft">draft-birgelee-acme-dns-persist-01</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
 <time datetime="2025-07-10" class="published">10 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2026-01-11">11 January 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">Y. N. Here</div>
-<div class="org">Your Organization Here</div>
+      <div class="author-name">H. Birge-Lee</div>
+<div class="org">Princeton University</div>
 </div>
 </dd>
 </dl>
 </div>
-<h1 id="title">TODO - Your title</h1>
+<h1 id="title">ACME DNS Persist Validation Method</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Domain Control Validation can be performed using a persistent identifier at a well-known DNS prefix. This draft allows for support of this method using the ACME protocol.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1089,14 +1088,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://example.com/LATEST">https://example.com/LATEST</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/">https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+        The latest revision of this draft can be found at <span><a href="https://birgelee.github.io/draft-birgelee-dns-persist-01/">https://birgelee.github.io/draft-birgelee-dns-persist-01/</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-birgelee-acme-dns-persist/">https://datatracker.ietf.org/doc/draft-birgelee-acme-dns-persist/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        WG Working Group mailing list (<span><a href="mailto:WG@example.com">mailto:WG@example.com</a></span>),
-        which is archived at <span><a href="https://example.com/WG">https://example.com/WG</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        WG Working Group mailing list (<span><a href="mailto:acme@ietf.org">mailto:acme@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/acme/">https://mailarchive.ietf.org/arch/browse/acme/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/acme/">https://www.ietf.org/mailman/listinfo/acme/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/USER/REPO">https://github.com/USER/REPO</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+        <span><a href="https://github.com/birgelee/birgelee-acme-dns-persist-01">https://github.com/birgelee/birgelee-acme-dns-persist-01</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1153,19 +1153,33 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-acme-dns-persist-validation" class="internal xref">ACME DNS Persist Validation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-reuse-of-challenge-txt-reco" class="internal xref">Reuse of challenge TXT records</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1190,37 +1204,127 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-considerations">
+<div id="acme-dns-persist-validation">
 <section id="section-3">
-      <h2 id="name-security-considerations">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      <h2 id="name-acme-dns-persist-validation">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-acme-dns-persist-validation" class="section-name selfRef">ACME DNS Persist Validation</a>
       </h2>
-<p id="section-3-1">TODO Security<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">DNS Persist Validation proves control of a domain using a persistent identifier placed in DNS.
+The ACME server validates control of the domain name by querying DNS to confirm the presence of a particular identifier.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">type (required, string):  The string "dns-persist-01"<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">GET /acme/authz/1234/1 HTTP/1.1
+Host: example.com<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">HTTP/1.1 200 OK
+   {
+     "type": "dns-persist-01",
+     "url": "https://example.com/acme/authz/1234/1",
+     "status": "pending"
+   }<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">The client constructs the validation domain name by prepending the label "_acme-challenge-persist" to the domain name being validated, then provisions a TXT record under that domain.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">The value of the TXT record <span class="bcp14">MUST</span> have the following format defined in ABNF as per <span>[<a href="#RFC5234" class="cite xref">RFC5234</a>]</span>).<a href="#section-3-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3-7">
+<pre>
+txt-record-value = *WSP ca-caa-authorization-domain *WSP ";" *WSP [attribute-list] *WSP
+
+attribute-list = (attribute *WSP ";" *WSP attribute-list) / attribute
+attribute = attribute-name *WSP "=" *WSP attribute-value
+
+attribute-name = (ALPHA / DIGIT) *( *("-") (ALPHA / DIGIT))
+attribute-value = *(value-char / WSP) value-char *(value-char / WSP)
+value-char = %x21-3A / %x3C-7E
+</pre><a href="#section-3-7" class="pilcrow">¶</a>
+</div>
+<p id="section-3-8">In detail:<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-9">ca-caa-authorization-domain: This refers to a domain name that the CA is authorized to sign on when seen in a CAA record.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<p id="section-3-10">attribute-list: This is a list of attributes which are put after the ca-caa-authorization-domain.<a href="#section-3-10" class="pilcrow">¶</a></p>
+<p id="section-3-11">Permitted Attributes and possible values include:<a href="#section-3-11" class="pilcrow">¶</a></p>
+<p id="section-3-12">accounturi: This attribute <span class="bcp14">MUST</span> be included in the attribute list. The corresponding value <span class="bcp14">MUST</span> be the account uri associated with the ACME account requesting the certificate.<a href="#section-3-12" class="pilcrow">¶</a></p>
+<p id="section-3-13">persistUntil: This attribute is optional. It contains a unix timestamp after which the record can no longer be used for a DCV check. If a CA checks a dns-persist-01 record and its current timestamp is after the persistUntil, the CA <span class="bcp14">MUST NOT</span> consider the validation completed.<a href="#section-3-13" class="pilcrow">¶</a></p>
+<p id="section-3-14">Any record that cannot be parsed properly using this ABNF definition, <span class="bcp14">MUST NOT</span> be treated as satisfying the validation method.<a href="#section-3-14" class="pilcrow">¶</a></p>
+<p id="section-3-15">For example, if a CA was authorized to sign certificates with a CAA identifier of "example-ca.example" and an ACME client with account uri "https://authority.example/acct/123" was requesting a certificate, the following record would satisfy the dns-persist-01 validation method for the domain "example.com"<a href="#section-3-15" class="pilcrow">¶</a></p>
+<p id="section-3-16"><code>_acme-challenge-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"</code><a href="#section-3-16" class="pilcrow">¶</a></p>
+<p id="section-3-17">On receiving a response, the server validates the challenge using the following steps.<a href="#section-3-17" class="pilcrow">¶</a></p>
+<p id="section-3-18">To validate a DNS challenge, the server performs the following steps:<a href="#section-3-18" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-19">
+<li id="section-3-19.1">
+          <p id="section-3-19.1.1">Queries <code>_acme-challenge-persist.</code> prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.<a href="#section-3-19.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-3-19.2">
+          <p id="section-3-19.2.1">The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the following criteria.<a href="#section-3-19.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+<p id="section-3-20">2a. The corresponding TXT record adheres to the proper ABNF syntax.<a href="#section-3-20" class="pilcrow">¶</a></p>
+<p id="section-3-21">2b. The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.<a href="#section-3-21" class="pilcrow">¶</a></p>
+<p id="section-3-22">2c.  The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.<a href="#section-3-22" class="pilcrow">¶</a></p>
+<p id="section-3-23">2d.  If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.<a href="#section-3-23" class="pilcrow">¶</a></p>
+<p id="section-3-24">The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.<a href="#section-3-24" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="reuse-of-challenge-txt-records">
+<section id="section-4">
+      <h2 id="name-reuse-of-challenge-txt-reco">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-reuse-of-challenge-txt-reco" class="section-name selfRef">Reuse of challenge TXT records</a>
+      </h2>
+<p id="section-4-1">Unlike other ACME challenges, the DNS record used to satisfy "dns-persist-01" does not contain any information that changes on certificate renewal. The intend of the record is that it can be uploaded to DNS once and kept in place to permit all future certificate issuances by authorized ACME clients at authorized CAs. This eliminates the need for an ACME client to have real-time control over critical operational resources associated with a domain while still confirming the intend of the domain owner to authorize a particular certificate request.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Because of this, it is encouraged that ACME clients leave the relevant TXT record(s) used to satisfy this challenge in place between validations. A domain owner may even provision such a record before requesting a certificate from a CA as the entirety of the contents of the record can be determined before the certificate request.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">An ACME client <span class="bcp14">SHOULD</span> check for the record's presents itself before instructing the CA to perform the check to reduce load on the CA and provide more detailed feedback to the user if the challenge is configured incorrectly.<a href="#section-4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-5">
+      <h2 id="name-security-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-5-1">TODO Security<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-4">
+<section id="section-6">
       <h2 id="name-iana-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
-<section id="section-5">
-      <h2 id="name-normative-references">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<div id="sec-combined-references">
+<section id="section-7">
+      <h2 id="name-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-7.1">
+        <h3 id="name-normative-references">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5234">[RFC5234]</dt>
+        <dd>
+<span class="refAuthor">Crocker, D., Ed.</span> and <span class="refAuthor">P. Overell</span>, <span class="refTitle">"Augmented BNF for Syntax Specifications: ABNF"</span>, <span class="seriesInfo">STD 68</span>, <span class="seriesInfo">RFC 5234</span>, <span class="seriesInfo">DOI 10.17487/RFC5234</span>, <time datetime="2008-01" class="refDate">January 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5234">https://www.rfc-editor.org/rfc/rfc5234</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-7.2">
+        <h3 id="name-informative-references">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC4086">[RFC4086]</dt>
+      <dd>
+<span class="refAuthor">Eastlake 3rd, D.</span>, <span class="refAuthor">Schiller, J.</span>, and <span class="refAuthor">S. Crocker</span>, <span class="refTitle">"Randomness Requirements for Security"</span>, <span class="seriesInfo">BCP 106</span>, <span class="seriesInfo">RFC 4086</span>, <span class="seriesInfo">DOI 10.17487/RFC4086</span>, <time datetime="2005-06" class="refDate">June 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4086">https://www.rfc-editor.org/rfc/rfc4086</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="acknowledgments">
@@ -1237,11 +1341,11 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Your Name Here</span></div>
-<div dir="auto" class="left"><span class="org">Your Organization Here</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Henry Birge-Lee</span></div>
+<div dir="auto" class="left"><span class="org">Princeton University</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:your.email@example.com" class="email">your.email@example.com</a>
+<a href="mailto:birgelee@princeton.edu" class="email">birgelee@princeton.edu</a>
 </div>
 </address>
 </section>
