@@ -15,12 +15,12 @@ keyword:
  - acme
  - DNS
 venue:
-  group: WG
-  type: Working Group
-  mail: acme@ietf.org
-  arch: https://mailarchive.ietf.org/arch/browse/acme/
-  github: birgelee/birgelee-acme-dns-persist-01
-  latest: https://birgelee.github.io/draft-birgelee-dns-persist-01/
+  group: "Automated Certificate Management Environment"
+  type: "Working Group"
+  mail: "acme@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/acme/"
+  github: "birgelee/birgelee-acme-dns-persist-01"
+  latest: "https://birgelee.github.io/birgelee-acme-dns-persist-01/draft-birgelee-acme-dns-persist.html"
 
 author:
  -
@@ -116,7 +116,7 @@ On receiving a response, the server validates the challenge using the following 
    1.  Queries `_acme-challenge-persist.` prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.
 
    2. The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the following criteria.
-   
+
    2a. The corresponding TXT record adheres to the proper ABNF syntax.
 
    2b. The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.
