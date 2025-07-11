@@ -171,18 +171,19 @@ value-char = %x21-3A / %x3C-7E
    2.  The CA then enumerates through the TXT records retrieved to
        ensureat least one of the records meets the following criteria.
 
-   3.  The corresponding TXT record adheres to the proper ABNF syntax.
+       *  The corresponding TXT record adheres to the proper ABNF
+          syntax.
 
-   4.  The "ca-caa-authorization-domain" is a domain the CA is permitted
-       to use in CAA records per its CPS.
+       *  The "ca-caa-authorization-domain" is a domain the CA is
+          permitted to use in CAA records per its CPS.
 
-   5.  The "attribute-list" contains an accounturi attribute and the
-       corresponding value is the accounturi of the ACME client that
-       requested the challenge.
+       *  The "attribute-list" contains an accounturi attribute and the
+          corresponding value is the accounturi of the ACME client that
+          requested the challenge.
 
-   6.  If persistUntil is contained in the attribute-list, the current
-       unix timestamp is less than or qual to the timestamp contained in
-       the persistUntil field.
+       *  If persistUntil is contained in the attribute-list, the
+          current unix timestamp is less than or qual to the timestamp
+          contained in the persistUntil field.
 
    The challenge is successful if for at least one TXT record retrieved
    by the CA, all of the conditions are met.  If no DNS record is found,
