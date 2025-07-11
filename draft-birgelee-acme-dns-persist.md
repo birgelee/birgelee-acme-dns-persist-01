@@ -57,7 +57,9 @@ TODO Introduction
 DNS Persist Validation proves control of a domain using a persistent identifier placed in DNS.
 The ACME server validates control of the domain name by querying DNS to confirm the presence of a particular identifier.
 
-type (required, string):  The string "dns-persist-01"
+## Syntax
+
+`type (required, string):  The string "dns-persist-01"`
 
 ```
 GET /acme/authz/1234/1 HTTP/1.1
@@ -109,6 +111,7 @@ For example, if a CA was authorized to sign certificates with a CAA identifier o
 
 ```_validation-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"```
 
+## Validating Challenges
 
 On receiving a response, the server validates the challenge using the following steps.
 
