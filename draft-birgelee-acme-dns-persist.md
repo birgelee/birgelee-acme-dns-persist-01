@@ -116,11 +116,15 @@ For example, if a CA was authorized to sign certificates with a CAA identifier o
 On receiving a response, the server validates the challenge using the following steps.
 
 1.  Queries `_validation-persist.` prepended to the domain beingvalidated in TXT and ensures it retrieves a DNS NoError response withthe requested TXT record set.
-2. The CA then enumerates through the TXT records retrieved to ensureat least one of the records meets the following criteria.
-    - The corresponding TXT record adheres to the proper ABNF syntax.
-    - The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.
-    -  The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.
-    -  If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.
+2. The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the required criteria.
+
+
+The criteria of a TXT record required to complete the dns-persist-01 challenge:
+
+1. The corresponding TXT record adheres to the proper ABNF syntax.
+2. The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.
+3. The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.
+4. If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.
 
 The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.
 
