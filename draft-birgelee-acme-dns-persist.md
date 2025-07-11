@@ -59,20 +59,21 @@ The ACME server validates control of the domain name by querying DNS to confirm 
 
 type (required, string):  The string "dns-persist-01"
 
-
+```
 GET /acme/authz/1234/1 HTTP/1.1
 Host: example.com
+```
 
-
+```
 HTTP/1.1 200 OK
    {
      "type": "dns-persist-01",
      "url": "https://example.com/acme/authz/1234/1",
      "status": "pending"
    }
+```
 
-
-The client constructs the validation domain name by prepending the label "_acme-challenge-persist" to the domain name being validated, then provisions a TXT record under that domain.
+The client constructs the validation domain name by prepending the label "_validation-persist" to the domain name being validated, then provisions a TXT record under that domain.
 
 The value of the TXT record MUST have the following format defined in ABNF as per {{RFC5234}}).
 
@@ -106,14 +107,14 @@ Any record that cannot be parsed properly using this ABNF definition, MUST NOT b
 
 For example, if a CA was authorized to sign certificates with a CAA identifier of "example-ca.example" and an ACME client with account uri "https://authority.example/acct/123" was requesting a certificate, the following record would satisfy the dns-persist-01 validation method for the domain "example.com"
 
-```_acme-challenge-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"```
+```_validation-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"```
 
 
 On receiving a response, the server validates the challenge using the following steps.
 
    To validate a DNS challenge, the server performs the following steps:
 
-   1.  Queries `_acme-challenge-persist.` prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.
+   1.  Queries `_validation-persist.` prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.
 
    2. The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the following criteria.
 
