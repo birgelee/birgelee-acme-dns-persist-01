@@ -4,12 +4,12 @@
 
 Automated Certificate Management Environment                H. Birge-Lee
 Internet-Draft                                      Princeton University
-Intended status: Standards Track                            10 July 2025
-Expires: 11 January 2026
+Intended status: Standards Track                            11 July 2025
+Expires: 12 January 2026
 
 
                    ACME DNS Persist Validation Method
-                   draft-birgelee-acme-dns-persist-01
+                 draft-birgelee-acme-dns-persist-latest
 
 Abstract
 
@@ -22,12 +22,14 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://birgelee.github.io/draft-birgelee-dns-persist-01/.  Status
-   information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-birgelee-acme-dns-persist/.
+   https://birgelee.github.io/birgelee-acme-dns-persist-01/draft-
+   birgelee-acme-dns-persist.html.  Status information for this document
+   may be found at https://datatracker.ietf.org/doc/draft-birgelee-acme-
+   dns-persist/.
 
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:acme@ietf.org), which is archived at
+   Discussion of this document takes place on the Automated Certificate
+   Management Environment Working Group mailing list
+   (mailto:acme@ietf.org), which is archived at
    https://mailarchive.ietf.org/arch/browse/acme/.  Subscribe at
    https://www.ietf.org/mailman/listinfo/acme/.
 
@@ -49,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 January 2026.
+   This Internet-Draft will expire on 12 January 2026.
 
 Copyright Notice
 
@@ -106,8 +108,8 @@ Table of Contents
    "https://example.com/acme/authz/1234/1", "status": "pending" }
 
    The client constructs the validation domain name by prepending the
-   label "_acme-challenge-persist" to the domain name being validated,
-   then provisions a TXT record under that domain.
+   label "_validation-persist" to the domain name being validated, then
+   provisions a TXT record under that domain.
 
    The value of the TXT record MUST have the following format defined in
    ABNF as per [RFC5234]).
@@ -150,7 +152,7 @@ value-char = %x21-3A / %x3C-7E
    certificate, the following record would satisfy the dns-persist-01
    validation method for the domain "example.com"
 
-   _acme-challenge-persist.example.com IN TXT "example-ca.example;
+   _validation-persist.example.com IN TXT "example-ca.example;
    accounturi=https://authority.example/acct/123"
 
    On receiving a response, the server validates the challenge using the
@@ -158,7 +160,7 @@ value-char = %x21-3A / %x3C-7E
 
    To validate a DNS challenge, the server performs the following steps:
 
-   1.  Queries _acme-challenge-persist. prepended to the domain being
+   1.  Queries _validation-persist. prepended to the domain being
        validated in TXT and ensures it retrieves a DNS NoError response
        with the requested TXT record set.
 

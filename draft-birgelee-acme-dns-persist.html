@@ -12,7 +12,7 @@
 <meta content="xml2rfc 3.29.0" name="generator">
 <meta content="acme" name="keyword">
 <meta content="DNS" name="keyword">
-<meta content="draft-birgelee-acme-dns-persist-01" name="ietf.draft">
+<meta content="draft-birgelee-acme-dns-persist-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.29.0
     Python 3.12.11
@@ -1049,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Birge-Lee</td>
-<td class="center">Expires 11 January 2026</td>
+<td class="center">Expires 12 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1059,15 +1059,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Automated Certificate Management Environment</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-birgelee-acme-dns-persist-01</dd>
+<dd class="internet-draft">draft-birgelee-acme-dns-persist-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-10" class="published">10 July 2025</time>
+<time datetime="2025-07-11" class="published">11 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-11">11 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-12">12 January 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1088,11 +1088,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://birgelee.github.io/draft-birgelee-dns-persist-01/">https://birgelee.github.io/draft-birgelee-dns-persist-01/</a></span>.
+        The latest revision of this draft can be found at <span><a href="https://birgelee.github.io/birgelee-acme-dns-persist-01/draft-birgelee-acme-dns-persist.html">https://birgelee.github.io/birgelee-acme-dns-persist-01/draft-birgelee-acme-dns-persist.html</a></span>.
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-birgelee-acme-dns-persist/">https://datatracker.ietf.org/doc/draft-birgelee-acme-dns-persist/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        WG Working Group mailing list (<span><a href="mailto:acme@ietf.org">mailto:acme@ietf.org</a></span>),
+        Automated Certificate Management Environment Working Group mailing list (<span><a href="mailto:acme@ietf.org">mailto:acme@ietf.org</a></span>),
         which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/acme/">https://mailarchive.ietf.org/arch/browse/acme/</a></span>.
         Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/acme/">https://www.ietf.org/mailman/listinfo/acme/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
@@ -1117,7 +1117,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1212,15 +1212,19 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-1">DNS Persist Validation proves control of a domain using a persistent identifier placed in DNS.
 The ACME server validates control of the domain name by querying DNS to confirm the presence of a particular identifier.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">type (required, string):  The string "dns-persist-01"<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">GET /acme/authz/1234/1 HTTP/1.1
-Host: example.com<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">HTTP/1.1 200 OK
+<p id="section-3-3"><code>
+GET /acme/authz/1234/1 HTTP/1.1
+Host: example.com
+</code><a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4"><code>
+HTTP/1.1 200 OK
    {
      "type": "dns-persist-01",
      "url": "https://example.com/acme/authz/1234/1",
      "status": "pending"
-   }<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">The client constructs the validation domain name by prepending the label "_acme-challenge-persist" to the domain name being validated, then provisions a TXT record under that domain.<a href="#section-3-5" class="pilcrow">¶</a></p>
+   }
+</code><a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">The client constructs the validation domain name by prepending the label "_validation-persist" to the domain name being validated, then provisions a TXT record under that domain.<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">The value of the TXT record <span class="bcp14">MUST</span> have the following format defined in ABNF as per <span>[<a href="#RFC5234" class="cite xref">RFC5234</a>]</span>).<a href="#section-3-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-7">
 <pre>
@@ -1242,12 +1246,12 @@ value-char = %x21-3A / %x3C-7E
 <p id="section-3-13">persistUntil: This attribute is optional. It contains a unix timestamp after which the record can no longer be used for a DCV check. If a CA checks a dns-persist-01 record and its current timestamp is after the persistUntil, the CA <span class="bcp14">MUST NOT</span> consider the validation completed.<a href="#section-3-13" class="pilcrow">¶</a></p>
 <p id="section-3-14">Any record that cannot be parsed properly using this ABNF definition, <span class="bcp14">MUST NOT</span> be treated as satisfying the validation method.<a href="#section-3-14" class="pilcrow">¶</a></p>
 <p id="section-3-15">For example, if a CA was authorized to sign certificates with a CAA identifier of "example-ca.example" and an ACME client with account uri "https://authority.example/acct/123" was requesting a certificate, the following record would satisfy the dns-persist-01 validation method for the domain "example.com"<a href="#section-3-15" class="pilcrow">¶</a></p>
-<p id="section-3-16"><code>_acme-challenge-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"</code><a href="#section-3-16" class="pilcrow">¶</a></p>
+<p id="section-3-16"><code>_validation-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"</code><a href="#section-3-16" class="pilcrow">¶</a></p>
 <p id="section-3-17">On receiving a response, the server validates the challenge using the following steps.<a href="#section-3-17" class="pilcrow">¶</a></p>
 <p id="section-3-18">To validate a DNS challenge, the server performs the following steps:<a href="#section-3-18" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-19">
 <li id="section-3-19.1">
-          <p id="section-3-19.1.1">Queries <code>_acme-challenge-persist.</code> prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.<a href="#section-3-19.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-19.1.1">Queries <code>_validation-persist.</code> prepended to the domain being validated in TXT and ensures it retrieves a DNS NoError response with the requested TXT record set.<a href="#section-3-19.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-19.2">
           <p id="section-3-19.2.1">The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the following criteria.<a href="#section-3-19.2.1" class="pilcrow">¶</a></p>
