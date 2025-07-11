@@ -72,6 +72,8 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  ACME DNS Persist Validation
+     3.1.  Syntax
+     3.2.  Validating Challenges
    4.  Reuse of challenge TXT records
    5.  Security Considerations
    6.  IANA Considerations
@@ -99,6 +101,8 @@ Table of Contents
    identifier placed in DNS.  The ACME server validates control of the
    domain name by querying DNS to confirm the presence of a particular
    identifier.
+
+3.1.  Syntax
 
    type (required, string): The string "dns-persist-01"
 
@@ -154,6 +158,8 @@ value-char = %x21-3A / %x3C-7E
 
    _validation-persist.example.com IN TXT "example-ca.example;
    accounturi=https://authority.example/acct/123"
+
+3.2.  Validating Challenges
 
    On receiving a response, the server validates the challenge using the
    following steps.

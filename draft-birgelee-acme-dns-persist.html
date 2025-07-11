@@ -1153,7 +1153,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-acme-dns-persist-validation" class="internal xref">ACME DNS Persist Validation</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-acme-dns-persist-validation" class="internal xref">ACME DNS Persist Validation</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-syntax" class="internal xref">Syntax</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-validating-challenges" class="internal xref">Validating Challenges</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-reuse-of-challenge-txt-reco" class="internal xref">Reuse of challenge TXT records</a></p>
@@ -1211,22 +1219,27 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       </h2>
 <p id="section-3-1">DNS Persist Validation proves control of a domain using a persistent identifier placed in DNS.
 The ACME server validates control of the domain name by querying DNS to confirm the presence of a particular identifier.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">type (required, string):  The string "dns-persist-01"<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3"><code>
+<div id="syntax">
+<section id="section-3.1">
+        <h3 id="name-syntax">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-syntax" class="section-name selfRef">Syntax</a>
+        </h3>
+<p id="section-3.1-1"><code>type (required, string):  The string "dns-persist-01"</code><a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2"><code>
 GET /acme/authz/1234/1 HTTP/1.1
 Host: example.com
-</code><a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4"><code>
+</code><a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3"><code>
 HTTP/1.1 200 OK
    {
      "type": "dns-persist-01",
      "url": "https://example.com/acme/authz/1234/1",
      "status": "pending"
    }
-</code><a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">The client constructs the validation domain name by prepending the label "_validation-persist" to the domain name being validated, then provisions a TXT record under that domain.<a href="#section-3-5" class="pilcrow">¶</a></p>
-<p id="section-3-6">The value of the TXT record <span class="bcp14">MUST</span> have the following format defined in ABNF as per <span>[<a href="#RFC5234" class="cite xref">RFC5234</a>]</span>).<a href="#section-3-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3-7">
+</code><a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">The client constructs the validation domain name by prepending the label "_validation-persist" to the domain name being validated, then provisions a TXT record under that domain.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">The value of the TXT record <span class="bcp14">MUST</span> have the following format defined in ABNF as per <span>[<a href="#RFC5234" class="cite xref">RFC5234</a>]</span>).<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-6">
 <pre>
 txt-record-value = *WSP ca-caa-authorization-domain *WSP ";" *WSP [attribute-list] *WSP
 
@@ -1236,39 +1249,48 @@ attribute = attribute-name *WSP "=" *WSP attribute-value
 attribute-name = (ALPHA / DIGIT) *( *("-") (ALPHA / DIGIT))
 attribute-value = *(value-char / WSP) value-char *(value-char / WSP)
 value-char = %x21-3A / %x3C-7E
-</pre><a href="#section-3-7" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-6" class="pilcrow">¶</a>
 </div>
-<p id="section-3-8">In detail:<a href="#section-3-8" class="pilcrow">¶</a></p>
-<p id="section-3-9">ca-caa-authorization-domain: This refers to a domain name that the CA is authorized to sign on when seen in a CAA record.<a href="#section-3-9" class="pilcrow">¶</a></p>
-<p id="section-3-10">attribute-list: This is a list of attributes which are put after the ca-caa-authorization-domain.<a href="#section-3-10" class="pilcrow">¶</a></p>
-<p id="section-3-11">Permitted Attributes and possible values include:<a href="#section-3-11" class="pilcrow">¶</a></p>
-<p id="section-3-12">accounturi: This attribute <span class="bcp14">MUST</span> be included in the attribute list. The corresponding value <span class="bcp14">MUST</span> be the account uri associated with the ACME account requesting the certificate.<a href="#section-3-12" class="pilcrow">¶</a></p>
-<p id="section-3-13">persistUntil: This attribute is optional. It contains a unix timestamp after which the record can no longer be used for a DCV check. If a CA checks a dns-persist-01 record and its current timestamp is after the persistUntil, the CA <span class="bcp14">MUST NOT</span> consider the validation completed.<a href="#section-3-13" class="pilcrow">¶</a></p>
-<p id="section-3-14">Any record that cannot be parsed properly using this ABNF definition, <span class="bcp14">MUST NOT</span> be treated as satisfying the validation method.<a href="#section-3-14" class="pilcrow">¶</a></p>
-<p id="section-3-15">For example, if a CA was authorized to sign certificates with a CAA identifier of "example-ca.example" and an ACME client with account uri "https://authority.example/acct/123" was requesting a certificate, the following record would satisfy the dns-persist-01 validation method for the domain "example.com"<a href="#section-3-15" class="pilcrow">¶</a></p>
-<p id="section-3-16"><code>_validation-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"</code><a href="#section-3-16" class="pilcrow">¶</a></p>
-<p id="section-3-17">On receiving a response, the server validates the challenge using the following steps.<a href="#section-3-17" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3-18">
-<li id="section-3-18.1">
-          <p id="section-3-18.1.1">Queries <code>_validation-persist.</code> prepended to the domain beingvalidated in TXT and ensures it retrieves a DNS NoError response withthe requested TXT record set.<a href="#section-3-18.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">In detail:<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-8">ca-caa-authorization-domain: This refers to a domain name that the CA is authorized to sign on when seen in a CAA record.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.1-9">attribute-list: This is a list of attributes which are put after the ca-caa-authorization-domain.<a href="#section-3.1-9" class="pilcrow">¶</a></p>
+<p id="section-3.1-10">Permitted Attributes and possible values include:<a href="#section-3.1-10" class="pilcrow">¶</a></p>
+<p id="section-3.1-11">accounturi: This attribute <span class="bcp14">MUST</span> be included in the attribute list. The corresponding value <span class="bcp14">MUST</span> be the account uri associated with the ACME account requesting the certificate.<a href="#section-3.1-11" class="pilcrow">¶</a></p>
+<p id="section-3.1-12">persistUntil: This attribute is optional. It contains a unix timestamp after which the record can no longer be used for a DCV check. If a CA checks a dns-persist-01 record and its current timestamp is after the persistUntil, the CA <span class="bcp14">MUST NOT</span> consider the validation completed.<a href="#section-3.1-12" class="pilcrow">¶</a></p>
+<p id="section-3.1-13">Any record that cannot be parsed properly using this ABNF definition, <span class="bcp14">MUST NOT</span> be treated as satisfying the validation method.<a href="#section-3.1-13" class="pilcrow">¶</a></p>
+<p id="section-3.1-14">For example, if a CA was authorized to sign certificates with a CAA identifier of "example-ca.example" and an ACME client with account uri "https://authority.example/acct/123" was requesting a certificate, the following record would satisfy the dns-persist-01 validation method for the domain "example.com"<a href="#section-3.1-14" class="pilcrow">¶</a></p>
+<p id="section-3.1-15"><code>_validation-persist.example.com IN TXT "example-ca.example; accounturi=https://authority.example/acct/123"</code><a href="#section-3.1-15" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="validating-challenges">
+<section id="section-3.2">
+        <h3 id="name-validating-challenges">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-validating-challenges" class="section-name selfRef">Validating Challenges</a>
+        </h3>
+<p id="section-3.2-1">On receiving a response, the server validates the challenge using the following steps.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.2-2">
+<li id="section-3.2-2.1">
+            <p id="section-3.2-2.1.1">Queries <code>_validation-persist.</code> prepended to the domain beingvalidated in TXT and ensures it retrieves a DNS NoError response withthe requested TXT record set.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-18.2">
-          <p id="section-3-18.2.1">The CA then enumerates through the TXT records retrieved to ensureat least one of the records meets the following criteria.<a href="#section-3-18.2.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.2">
+            <p id="section-3.2-2.2.1">The CA then enumerates through the TXT records retrieved to ensureat least one of the records meets the following criteria.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-18.3">
-          <p id="section-3-18.3.1">The corresponding TXT record adheres to the proper ABNF syntax.<a href="#section-3-18.3.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.3">
+            <p id="section-3.2-2.3.1">The corresponding TXT record adheres to the proper ABNF syntax.<a href="#section-3.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-18.4">
-          <p id="section-3-18.4.1">The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.<a href="#section-3-18.4.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.4">
+            <p id="section-3.2-2.4.1">The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-18.5">
-          <p id="section-3-18.5.1">The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.<a href="#section-3-18.5.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.5">
+            <p id="section-3.2-2.5.1">The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.<a href="#section-3.2-2.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-18.6">
-          <p id="section-3-18.6.1">If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.<a href="#section-3-18.6.1" class="pilcrow">¶</a></p>
+          <li id="section-3.2-2.6">
+            <p id="section-3.2-2.6.1">If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.<a href="#section-3.2-2.6.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-3-19">The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.<a href="#section-3-19" class="pilcrow">¶</a></p>
+        </ol>
+<p id="section-3.2-3">The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="reuse-of-challenge-txt-records">
