@@ -1,0 +1,260 @@
+
+
+
+
+Automated Certificate Management Environment                H. Birge-Lee
+Internet-Draft                                      Princeton University
+Intended status: Standards Track                            11 July 2025
+Expires: 12 January 2026
+
+
+                   ACME DNS Persist Validation Method
+                 draft-birgelee-acme-dns-persist-latest
+
+Abstract
+
+   Domain Control Validation can be performed using a persistent
+   identifier at a well-known DNS prefix.  This draft allows for support
+   of this method using the ACME protocol.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://birgelee.github.io/birgelee-acme-dns-persist-01/draft-
+   birgelee-acme-dns-persist.html.  Status information for this document
+   may be found at https://datatracker.ietf.org/doc/draft-birgelee-acme-
+   dns-persist/.
+
+   Discussion of this document takes place on the Automated Certificate
+   Management Environment Working Group mailing list
+   (mailto:acme@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/acme/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/acme/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/birgelee/birgelee-acme-dns-persist-01.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 12 January 2026.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  ACME DNS Persist Validation
+     3.1.  Syntax
+     3.2.  Validating Challenges
+   4.  Reuse of challenge TXT records
+   5.  Security Considerations
+   6.  IANA Considerations
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   TODO Introduction
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  ACME DNS Persist Validation
+
+   DNS Persist Validation proves control of a domain using a persistent
+   identifier placed in DNS.  The ACME server validates control of the
+   domain name by querying DNS to confirm the presence of a particular
+   identifier.
+
+3.1.  Syntax
+
+   type (required, string): The string "dns-persist-01"
+
+   GET /acme/authz/1234/1 HTTP/1.1 Host: example.com
+
+   HTTP/1.1 200 OK { "type": "dns-persist-01", "url":
+   "https://example.com/acme/authz/1234/1", "status": "pending" }
+
+   The client constructs the validation domain name by prepending the
+   label "_validation-persist" to the domain name being validated, then
+   provisions a TXT record under that domain.
+
+   The value of the TXT record MUST have the following format defined in
+   ABNF as per [RFC5234]).
+
+txt-record-value = *WSP ca-caa-authorization-domain *WSP ";" *WSP [attribute-list] *WSP
+
+attribute-list = (attribute *WSP ";" *WSP attribute-list) / attribute
+attribute = attribute-name *WSP "=" *WSP attribute-value
+
+attribute-name = (ALPHA / DIGIT) *( *("-") (ALPHA / DIGIT))
+attribute-value = *(value-char / WSP) value-char *(value-char / WSP)
+value-char = %x21-3A / %x3C-7E
+
+   In detail:
+
+   ca-caa-authorization-domain: This refers to a domain name that the CA
+   is authorized to sign on when seen in a CAA record.
+
+   attribute-list: This is a list of attributes which are put after the
+   ca-caa-authorization-domain.
+
+   Permitted Attributes and possible values include:
+
+   accounturi: This attribute MUST be included in the attribute list.
+   The corresponding value MUST be the account uri associated with the
+   ACME account requesting the certificate.
+
+   persistUntil: This attribute is optional.  It contains a unix
+   timestamp after which the record can no longer be used for a DCV
+   check.  If a CA checks a dns-persist-01 record and its current
+   timestamp is after the persistUntil, the CA MUST NOT consider the
+   validation completed.
+
+   Any record that cannot be parsed properly using this ABNF definition,
+   MUST NOT be treated as satisfying the validation method.
+
+   For example, if a CA was authorized to sign certificates with a CAA
+   identifier of "example-ca.example" and an ACME client with account
+   uri "https://authority.example/acct/123" was requesting a
+   certificate, the following record would satisfy the dns-persist-01
+   validation method for the domain "example.com"
+
+   _validation-persist.example.com IN TXT "example-ca.example;
+   accounturi=https://authority.example/acct/123"
+
+3.2.  Validating Challenges
+
+   On receiving a response, the server validates the challenge using the
+   following steps.
+
+   1.  Queries _validation-persist. prepended to the domain
+       beingvalidated in TXT and ensures it retrieves a DNS NoError
+       response withthe requested TXT record set.
+
+   2.  The CA then enumerates through the TXT records retrieved to
+       ensure at least one of the records meets the required criteria.
+
+   The criteria of a TXT record required to complete the dns-persist-01
+   challenge:
+
+   1.  The corresponding TXT record adheres to the proper ABNF syntax.
+
+   2.  The "ca-caa-authorization-domain" is a domain the CA is permitted
+       to use in CAA records per its CPS.
+
+   3.  The "attribute-list" contains an accounturi attribute and the
+       corresponding value is the accounturi of the ACME client that
+       requested the challenge.
+
+   4.  If persistUntil is contained in the attribute-list, the current
+       unix timestamp is less than or qual to the timestamp contained in
+       the persistUntil field.
+
+   The challenge is successful if for at least one TXT record retrieved
+   by the CA, all of the conditions are met.  If no DNS record is found,
+   or DNS record and response payload do not pass these checks, then the
+   validation fails.
+
+4.  Reuse of challenge TXT records
+
+   Unlike other ACME challenges, the DNS record used to satisfy "dns-
+   persist-01" does not contain any information that changes on
+   certificate renewal.  The intend of the record is that it can be
+   uploaded to DNS once and kept in place to permit all future
+   certificate issuances by authorized ACME clients at authorized CAs.
+   This eliminates the need for an ACME client to have real-time control
+   over critical operational resources associated with a domain while
+   still confirming the intend of the domain owner to authorize a
+   particular certificate request.
+
+   Because of this, it is encouraged that ACME clients leave the
+   relevant TXT record(s) used to satisfy this challenge in place
+   between validations.  A domain owner may even provision such a record
+   before requesting a certificate from a CA as the entirety of the
+   contents of the record can be determined before the certificate
+   request.
+
+   An ACME client SHOULD check for the record's presents itself before
+   instructing the CA to perform the check to reduce load on the CA and
+   provide more detailed feedback to the user if the challenge is
+   configured incorrectly.
+
+5.  Security Considerations
+
+   TODO Security
+
+6.  IANA Considerations
+
+   This document has no IANA actions.
+
+7.  References
+
+7.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
+              Specifications: ABNF", STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              <https://www.rfc-editor.org/rfc/rfc5234>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+7.2.  Informative References
+
+   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
+              "Randomness Requirements for Security", BCP 106, RFC 4086,
+              DOI 10.17487/RFC4086, June 2005,
+              <https://www.rfc-editor.org/rfc/rfc4086>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Henry Birge-Lee
+   Princeton University
+   Email: birgelee@princeton.edu
