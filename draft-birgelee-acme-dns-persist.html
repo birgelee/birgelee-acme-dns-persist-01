@@ -1273,24 +1273,25 @@ value-char = %x21-3A / %x3C-7E
             <p id="section-3.2-2.1.1">Queries <code>_validation-persist.</code> prepended to the domain beingvalidated in TXT and ensures it retrieves a DNS NoError response withthe requested TXT record set.<a href="#section-3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.2-2.2">
-            <p id="section-3.2-2.2.1">The CA then enumerates through the TXT records retrieved to ensureat least one of the records meets the following criteria.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.2-2.2.2.1">
-                <p id="section-3.2-2.2.2.1.1">The corresponding TXT record adheres to the proper ABNF syntax.<a href="#section-3.2-2.2.2.1.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.2-2.2.2.2">
-                <p id="section-3.2-2.2.2.2.1">The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.<a href="#section-3.2-2.2.2.2.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.2-2.2.2.3">
-                <p id="section-3.2-2.2.2.3.1">The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.<a href="#section-3.2-2.2.2.3.1" class="pilcrow">¶</a></p>
-</li>
-              <li class="normal" id="section-3.2-2.2.2.4">
-                <p id="section-3.2-2.2.2.4.1">If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.<a href="#section-3.2-2.2.2.4.1" class="pilcrow">¶</a></p>
-</li>
-            </ul>
+            <p id="section-3.2-2.2.1">The CA then enumerates through the TXT records retrieved to ensure at least one of the records meets the required criteria.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.2-3">The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">The criteria of a TXT record required to complete the dns-persist-01 challenge:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.2-4">
+<li id="section-3.2-4.1">
+            <p id="section-3.2-4.1.1">The corresponding TXT record adheres to the proper ABNF syntax.<a href="#section-3.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.2-4.2">
+            <p id="section-3.2-4.2.1">The "ca-caa-authorization-domain" is a domain the CA is permitted to use in CAA records per its CPS.<a href="#section-3.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.2-4.3">
+            <p id="section-3.2-4.3.1">The "attribute-list" contains an accounturi attribute and the corresponding value is the accounturi of the ACME client that requested the challenge.<a href="#section-3.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.2-4.4">
+            <p id="section-3.2-4.4.1">If persistUntil is contained in the attribute-list, the current unix timestamp is less than or qual to the timestamp contained in the persistUntil field.<a href="#section-3.2-4.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-3.2-5">The challenge is successful if for at least one TXT record retrieved by the CA, all of the conditions are met. If no DNS record is found, or DNS record and response payload do not pass these checks, then the validation fails.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
