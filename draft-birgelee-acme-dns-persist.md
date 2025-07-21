@@ -38,14 +38,24 @@ informative:
 
 --- abstract
 
-Domain Control Validation can be performed using a persistent identifier at a well-known DNS prefix. This draft allows for support of this method using the ACME protocol.
-
+This document defines extensions to the Automated Certificate Management Environment (ACME) to allow for domain control validation to be performed using a persistent identifier at a well-known DNS prefix.
+The value of this DNS record does not need to be changed between renewals, and this method does not require the ACME client to have access to live DNS infrastructure.
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+Completion of the ACME dns-01 challenge requires the applicant to upload a randomly-generated token to DNS each time a certificate is requested.
+A disadvantage of this method is that the ACME client must have access to a live DNS credential and the DNS software serving the zone in question must support automation.
+Currently, some cloud providers use a workaround of instructing customers to install DNS CNAME records at the "_acme-challenge" label used for the dns-01 challenge.
+
+While this effectively delegates the authority to obtain certificates while avoiding providing live DNS credentials to the cloud provider, there are several security and operational disadvantages to this approach.
+For example, 1) the infrastructure serving the zone used for ACME challenges could be compromised (potentially affecting many domains that all pointed to that same shared infrastructure), 2) CAs need to perform another potentially plaintext DNS lookup to complete the dns-01 challenge, 3) only one CNAME record can exist at a label preventing this technique from delegating control to multiple cloud providers, 4) availability issues with the ACME challenge zone could impact certificate availability, 5) the ACME client needs an additional communication channel to communicate with the ACME challenge zone, 6) a unique CNAME value must be provided to each of a cloud provider's customers otherwise this technique creates a major security breach between customers, 7) a separate DNS zone and automated DNS infrastructure must be provisioned making this technique less practical for smaller operators.
+
+The dns-01 challenge when used with a CNAME record does not actually enforce that a client has current control over the domain being validated.
+It instead enforces that the client at one point in time could put a static record into DNS.
+
+This document defines an alternative ACME validation method which relies on a client making a single static DNS change at one point in time which permits domain control validations validations until the record is removed from DNS.
 
 
 # Conventions and Definitions
@@ -144,7 +154,12 @@ TODO Security
 
 # IANA Considerations
 
-This document has no IANA actions.
+Within the "Automated Certificate Management Environment (ACME) Protocol" registry, the following entry should be added.
+
+Label: dns-persist-01
+Identifier Type: dns
+ACME: Y
+Reference: draft-birgelee-acme-dns-persist-01
 
 
 --- back
